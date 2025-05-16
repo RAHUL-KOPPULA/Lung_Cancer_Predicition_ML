@@ -25,11 +25,16 @@ Finding the best specalists Near the Patient
 ## 🖥️ Features in the App
 Feature	Description
 🎛️ 6 Symptom Sliders	Coughing Blood, Chest Pain, Fatigue, etc.
+
 📝 History Input	Previous disease history (e.g., Asthma, Diabetes)
+
 📊 Risk Level Output	Displays prediction as: Low, Medium, or High risk
+
 🌐 Doctor Search Button	Opens Google to search for specialists near user’s location
+
 🎨 Custom UI	Lung-cancer-themed background, high-contrast
 
 ## Author
 Koppula Rahul Babu
+
 contact : rahulrkgs34@gmail.com
