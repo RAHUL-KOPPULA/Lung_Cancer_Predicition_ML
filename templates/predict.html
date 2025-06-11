@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lung Cancer Risk Prediction</title>
+    <style>
+        /* Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('https://images.unsplash.com/photo-1588776814546-b74bb43dcb86?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 600px;
+            width: 90%;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+        }
+
+        p.welcome {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: #555;
+            font-weight: 600;
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin: 12px 0 6px;
+            color: #222;
+        }
+
+        select {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1.5px solid #ccc;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #0056b3, #003d7a);
+        }
+
+        /* Prediction result */
+        .result {
+            margin-top: 30px;
+            background-color: #dff0d8;
+            border: 1px solid #3c763d;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: #3c763d;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(60, 118, 61, 0.25);
+        }
+
+        /* Logout link */
+        .logout {
+            margin-top: 35px;
+            text-align: center;
+        }
+        .logout a {
+            color: #dc3545;
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        .logout a:hover {
+            border-color: #dc3545;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+            label {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🩺 Lung Cancer Risk Prediction</h2>
+    <p class="welcome">Welcome, <strong>{{ email }}</strong></p>
+
+    <form method="POST" action="/predict">
+        <label for="symptom1">Coughing of Blood:</label>
+        <select name="symptom1" id="symptom1" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <label for="symptom2">Chest Pain:</label>
+        <select name="symptom2" id="symptom2" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <label for="symptom3">Shortness of Breath:</label>
+        <select name="symptom3" id="symptom3" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <label for="symptom4">Fatigue:</label>
+        <select name="symptom4" id="symptom4" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <label for="symptom5">Dry Cough:</label>
+        <select name="symptom5" id="symptom5" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <label for="symptom6">Weight Loss:</label>
+        <select name="symptom6" id="symptom6" required>
+            <option value="Less">Less</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Heavy">Heavy</option>
+        </select>
+
+        <button type="submit">📊 Predict Risk</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        🚨 <strong>Predicted Risk Level:</strong> {{ prediction }}
+    </div>
+    {% endif %}
+
+    <div class="logout">
+        <a href="/logout">🔓 Logout</a>
+    </div>
+</div>
+
+</body>
+</html>

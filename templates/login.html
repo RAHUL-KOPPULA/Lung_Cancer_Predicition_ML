@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lung Cancer App - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            padding: 50px;
+        }
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-link {
+            background: none;
+            border: none;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+        }
+        .flash {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="loginBox">
+    <h2>🔐 Login</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <p class="flash">{{ message }}</p>
+      {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="/login">
+        <label>Email:</label>
+        <input type="text" name="email" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">Login</button>
+        <button class="btn-secondary" type="button" onclick="toggleSection('forgotBox')">Forgot Password?</button>
+        <button class="btn-secondary" type="button" onclick="toggleSection('registerBox')">Create Account</button>
+    </form>
+</div>
+
+<div class="container hidden" id="forgotBox">
+    <h3>🔑 Forgot Password</h3>
+    <form method="POST" action="/forgot-password">
+        <label>Enter your registered email:</label>
+        <input type="email" name="forgot_email" required>
+        <button type="submit">Send Reset Link</button>
+        <button class="btn-link" type="button" onclick="toggleSection('loginBox')">← Back to Login</button>
+    </form>
+</div>
+
+<div class="container hidden" id="registerBox">
+    <h3>📝 Create Account</h3>
+    <form method="POST" action="/register">
+        <label>Email:</label>
+        <input type="email" name="new_email" required>
+
+        <label>Password:</label>
+        <input type="password" name="new_password" required>
+
+        <button type="submit">Register</button>
+        <button class="btn-link" type="button" onclick="toggleSection('loginBox')">← Back to Login</button>
+    </form>
+</div>
+
+<script>
+    function toggleSection(idToShow) {
+        document.getElementById("loginBox").classList.add("hidden");
+        document.getElementById("forgotBox").classList.add("hidden");
+        document.getElementById("registerBox").classList.add("hidden");
+        document.getElementById(idToShow).classList.remove("hidden");
+    }
+</script>
+
+</body>
+</html>
